@@ -40,12 +40,12 @@ class AppTheme {
       bodyLarge: TextStyle(
         fontSize: 16,
         color: AppColors.white,
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
       ),
       bodyMedium: TextStyle(
         fontSize: 14,
         color: Colors.grey,
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
       ),
     ),
     colorScheme: const ColorScheme.dark(

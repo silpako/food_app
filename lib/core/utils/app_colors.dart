@@ -8,6 +8,11 @@ class AppColors {
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
 
+  static const Color pinksh = Color(0xFFEC2578);
+  static const Color lightcream = Color(0xFFFFF3D9);
+  static const Color orangeShade = Color(0xFFFFCC80);
+
   static const white = Colors.white;
   static const black = Colors.black;
+  static const grey = Colors.grey;
 }

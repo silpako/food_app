@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/core/utils/app_assets.dart';
+import 'package:food_app/routes/app_routes.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -49,8 +52,8 @@ class _SplashScreenState extends State<SplashScreen>
     await _foodController.forward();
     await Future.delayed(const Duration(milliseconds: 300));
     await _logoController.forward();
-    await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, '/onboarding');
+    await Future.delayed(const Duration(seconds: 3));
+    Get.offNamed(AppRoutes.onboarding);
   }
 
   @override
