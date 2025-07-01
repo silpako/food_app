@@ -14,12 +14,12 @@ class AppTheme {
       bodyLarge: TextStyle(
         fontSize: 16,
         color: AppColors.textPrimary,
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
       ),
       bodyMedium: TextStyle(
         fontSize: 14,
         color: AppColors.textSecondary,
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
       ),
     ),
     colorScheme: const ColorScheme.light(

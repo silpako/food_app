@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 300));
     await _logoController.forward();
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, '/onboarding'); // Update your route
+    Navigator.pushReplacementNamed(context, '/onboarding');
   }
 
   @override
