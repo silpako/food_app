@@ -1,4 +1,5 @@
 # Food APP
+![image alt](https://github.com/silpako/food_app/blob/a4e1908d965ccad38ce57b31050090d326b9f870/foodapp.png)
 ## 🚀 Features
 - **Flutter** (Dart)
 - **Firebase** (Auth, Firestore)
@@ -14,4 +15,4 @@ cd food_app
 flutter pub get
 flutter run
 
-![image alt](https://github.com/silpako/food_app/blob/a4e1908d965ccad38ce57b31050090d326b9f870/foodapp.png)
+
