@@ -7,4 +7,5 @@ class AppAssets {
 
   static const String facebookIcon = "assets/facebook.png";
   static const String googleIcon = "assets/googleicon.png";
+  static const String banner = "assets/promotion.png";
 }

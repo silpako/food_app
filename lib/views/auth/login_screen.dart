@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_app/common_widget/common_textformfiled.dart';
 import 'package:food_app/core/utils/app_colors.dart';
 import 'package:food_app/core/utils/app_assets.dart';
+import 'package:food_app/routes/app_routes.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool obscurePassword = true;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,100 +65,131 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    CustomTextField(
-                      hintText: "example@gmail.com",
-                      prefixIcon: Icons.person,
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 16),
-
-                    CustomTextField(
-                      hintText: "Password",
-                      prefixIcon: Icons.lock,
-                      obscureText: obscurePassword,
-                      controller: passwordController,
-                      suffixIcon:
-                          obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                      onSuffixTap: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 8),
-
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Forget Password?",
-                          style: TextStyle(color: AppColors.black),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
+                      const SizedBox(height: 20),
 
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.pinksh,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.white,
-                            fontSize: 18,
+                      CustomTextField(
+                        hintText: "example@gmail.com",
+                        prefixIcon: Icons.person,
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email is required';
+                          }
+                          if (!value.contains('@')) {
+                            return 'Enter a valid email';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      CustomTextField(
+                        hintText: "Password",
+                        prefixIcon: Icons.lock,
+                        obscureText: obscurePassword,
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          } else if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          return null;
+                        },
+                        suffixIcon:
+                            obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                        onSuffixTap: () {
+                          setState(() {
+                            obscurePassword = !obscurePassword;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 8),
+
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "Forget Password?",
+                            style: TextStyle(color: AppColors.black),
                           ),
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 10),
 
-                    const SizedBox(height: 16),
-                    const Text("Or"),
-                    const SizedBox(height: 16),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: Image.asset(AppAssets.googleIcon, height: 30),
-                        ),
-                        const SizedBox(width: 20),
-                        InkWell(
-                          onTap: () {},
-                          child: Image.asset(
-                            AppAssets.facebookIcon,
-                            height: 30,
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // if (_formKey.currentState!.validate()) {
+                            //   Get.toNamed('/home');
+                            // }
+                            Get.toNamed(AppRoutes.bottombar);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.pinksh,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.white,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+
+                      const SizedBox(height: 16),
+                      const Text(
+                        "Or",
+                        style: TextStyle(color: AppColors.pinksh, fontSize: 18),
+                      ),
+                      const SizedBox(height: 16),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Image.asset(
+                              AppAssets.googleIcon,
+                              height: 30,
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          InkWell(
+                            onTap: () {},
+                            child: Image.asset(
+                              AppAssets.facebookIcon,
+                              height: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -169,7 +204,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text("Don’t have an account?"),
                   const SizedBox(height: 8),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(AppRoutes.signup);
+                    },
                     child: const Text(
                       "REGISTER",
                       style: TextStyle(

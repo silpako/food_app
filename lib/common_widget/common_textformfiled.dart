@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final IconData? suffixIcon;
   final VoidCallback? onSuffixTap;
   final TextInputType keyboardType;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -19,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.onSuffixTap,
     this.keyboardType = TextInputType.text,
+    this.validator,
   });
 
   @override
@@ -28,6 +30,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(prefixIcon),
@@ -36,8 +39,8 @@ class CustomTextField extends StatelessWidget {
                 ? GestureDetector(onTap: onSuffixTap, child: Icon(suffixIcon))
                 : null,
         border: InputBorder.none,
-  enabledBorder: InputBorder.none,
-  focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
 
         filled: true,
         fillColor: Colors.grey.shade100,
@@ -45,4 +48,3 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
-   
