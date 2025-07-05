@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/common_widget/common_textformfiled.dart';
 import 'package:food_app/core/utils/app_colors.dart';
 import 'package:food_app/core/utils/app_assets.dart';
+import 'package:food_app/firebase/firebase_functions.dart';
 import 'package:food_app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -139,10 +140,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 48,
                         child: ElevatedButton(
                           onPressed: () {
-                            // if (_formKey.currentState!.validate()) {
-                            //   Get.toNamed('/home');
-                            // }
-                            Get.toNamed(AppRoutes.bottombar);
+                            FirebaseFunctions()
+                                .loginUser(
+                                  emaill: emailController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                )
+                                .then((response) {
+                                  if (response == null) {
+                                    Get.toNamed(AppRoutes.bottombar);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(response)),
+                                    );
+                                  }
+                                });
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.pinksh,

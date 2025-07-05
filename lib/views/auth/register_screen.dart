@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/common_widget/common_textformfiled.dart';
 import 'package:food_app/core/utils/app_colors.dart';
 import 'package:food_app/core/utils/app_assets.dart';
+import 'package:food_app/firebase/firebase_functions.dart';
 import 'package:food_app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool obscurePassword = true;
@@ -78,14 +78,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 20),
 
                     CustomTextField(
-                      hintText: "Name",
-                      prefixIcon: Icons.person,
-                      controller: nameController,
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(height: 16),
-
-                    CustomTextField(
                       hintText: "example@gmail.com",
                       prefixIcon: Icons.email,
                       controller: emailController,
@@ -115,7 +107,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 48,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed(AppRoutes.login);
+                          String emaill = emailController.text.trim();
+                          String pass = passwordController.text.trim();
+                          FirebaseFunctions()
+                              .registerUser(email: emaill, password: pass)
+                              .then((response) {
+                                if (response == null) {
+                                  Get.toNamed(AppRoutes.login);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(response)),
+                                  );
+                                }
+                              });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.pinksh,
