@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/core/utils/app_assets.dart';
+import 'package:food_app/routes/app_routes.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -50,7 +54,19 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 300));
     await _logoController.forward();
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, '/onboarding'); // Update your route
+
+    final prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool('is_first_time') ?? true;
+
+    if (isFirstTime) {
+      await prefs.setBool(
+        'is_first_time',
+        false,
+      ); // Set to false after showing once
+      Get.offNamed(AppRoutes.onboarding);
+    } else {
+      Get.offNamed(AppRoutes.login); // Navigate to login directly
+    }
   }
 
   @override
