@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/core/utils/app_colors.dart';
 import 'package:food_app/core/utils/app_assets.dart';
+import 'package:food_app/views/profile/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
+      endDrawer: const ProfileDrawer(), // ✅ Add the right-side drawer here!
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -16,13 +18,39 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Heading
-              const Text(
-                "Find Your\nFavourite Food",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Find Your\nFavourite Food",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black,
+                    ),
+                  ),
+                  Builder(
+                    builder: (context) {
+                      return InkWell(
+                        onTap: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.pinksh.withOpacity(0.2),
+                          radius: 30,
+                          child: ClipOval(
+                            child: Image.asset(
+                              AppAssets.boyone,
+                              fit: BoxFit.cover,
+                              width: 40,
+                              height: 40,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Row(

@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/core/utils/app_theme.dart';
 import 'package:food_app/routes/app_pages.dart';
 import 'package:food_app/routes/app_routes.dart';
+import 'package:food_app/views/home/bottombar.dart';
 
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -16,8 +18,14 @@ void main() async {
       projectId: "foodapp-52bf7",
     ),
   );
-
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
+  User? user =
+      FirebaseAuth.instance.currentUser; // to fetch the user who logged in
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: user == null ? MyApp() : BottomBar(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

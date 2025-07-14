@@ -19,14 +19,12 @@ class _BottomBarState extends State<BottomBar> {
     const HomeScreen(),
     const MessageScreen(),
     const CartScreen(),
-    const ProfileScreen(),
   ];
 
   final List<IconData> _icons = [
     Icons.home_filled,
     Icons.message,
     Icons.shopping_cart,
-    Icons.person,
   ];
 
   @override

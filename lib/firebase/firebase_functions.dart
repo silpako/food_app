@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseFunctions {
+  // Register
   final FirebaseAuth auth = FirebaseAuth.instance;
   Future<String?> registerUser({
     required String email,
@@ -19,6 +20,7 @@ class FirebaseFunctions {
     }
   }
 
+  // Login
   Future<String?> loginUser({
     required String emaill,
     required String password,
@@ -29,5 +31,10 @@ class FirebaseFunctions {
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
+  }
+
+  // Sign Out
+  Future<void> logoutUser() async {
+    await FirebaseAuth.instance.signOut();
   }
 }
